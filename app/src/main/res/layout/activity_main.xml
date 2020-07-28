@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.hq.gank.gankkotlin.ui.view.SizeObserverLinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <com.android.hq.gank.gankkotlin.ui.view.ViewPagerEx
+            android:id="@+id/view_pager_main"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+    />
+    <include layout="@layout/tool_bar"/>
+
+
+</com.android.hq.gank.gankkotlin.ui.view.SizeObserverLinearLayout>

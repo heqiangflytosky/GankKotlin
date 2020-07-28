@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="gank_type_android" translatable="false">Android</string>
+    <string name="gank_type_ios" translatable="false">iOS</string>
+    <string name="gank_type_web" translatable="false">前端</string>
+    <string name="gank_type_app" translatable="false">App</string>
+    <string name="gank_type_benefit" translatable="false">福利</string>
+    <string name="gank_type_rest_video" translatable="false">休息视频</string>
+    <string name="gank_type_expand_res" translatable="false">拓展资源</string>
+    <string name="gank_type_recommend" translatable="false">瞎推荐</string>
+
+    <string name="about_me_csdn_url" translatable="false">CSDN: http://blog.csdn.net/heqiangflytosky</string>
+    <string name="about_me_github_url" translatable="false">GitHub: https://github.com/heqiangflytosky</string>
+    <string name="about_me_main_page_url" translatable="false">个人主页: http://www.heqiangfly.com</string>
+    <string name="about_me_introduction_content" translatable="false">每日分享技术干货和妹子图，还有供大家中午休息的休闲视频</string>
+</resources>
