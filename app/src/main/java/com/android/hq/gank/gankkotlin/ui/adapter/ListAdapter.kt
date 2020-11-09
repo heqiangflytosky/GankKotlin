@@ -64,8 +64,9 @@ class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ContentViewHolder) {
             var item: GankContentItem = list?.get(position) as GankContentItem
-            holder.title?.text = item.desc
-            holder.from?.text = item.who
+            holder.title?.text = item.title
+            holder.des?.text = item.desc
+            holder.from?.text = item.author
             holder.time?.text = AppUtils.formatPublishedTime(item.publishedAt?:"")
 //            holder.itemView.setOnClickListener(object :View.OnClickListener{
 //                override fun onClick(v: View?) {
@@ -74,13 +75,13 @@ class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //            })
             holder.itemView.setOnClickListener { v: View? ->
                 AppUtils.startArticleDetailActivity(fragment!!.context!!, GankDetailData(item._id,item.type,item.url,
-                    item.who,item.desc,item.publishedAt,System.currentTimeMillis()))
+                    item.author,item.title, item.desc,item.publishedAt,System.currentTimeMillis()))
             }
         } else if (holder is ImageViewHolder) {
             Glide.with(fragment!!).load((list?.get(position) as GankImageItem).imageUrl)
                 .centerCrop().into(holder.mImageView)
         } else if (holder is HeaderViewHolder) {
-            var title :String = (list?.get(position) as GankHeaderItem).title
+            var title :String = (list?.get(position) as GankHeaderItem).label
             holder.mTitle.text = title
             when (title) {
                 GankType.TYPE_BENEFIT -> AppUtils.setTextViewLeftDrawableForHeader(

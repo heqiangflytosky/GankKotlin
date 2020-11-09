@@ -10,6 +10,7 @@ import com.android.hq.gank.gankkotlin.ui.view.RatioImageView
 
 class ContentViewHolder: RecyclerView.ViewHolder{
     var title: TextView? = null
+    var des: TextView ? = null
     var from: TextView? = null
     var time: TextView? = null
 
@@ -17,6 +18,7 @@ class ContentViewHolder: RecyclerView.ViewHolder{
             super(LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_content, parent, false)){
 
         title = itemView.findViewById(R.id.content_title) as TextView
+        des = itemView.findViewById(R.id.content_des)
         from = itemView.findViewById(R.id.item_footer_from) as TextView
         time = itemView.findViewById(R.id.item_footer_time) as TextView
     }
@@ -73,12 +75,14 @@ class HistoryFavViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     )
 ) {
     var mTitle: TextView
+    var mDes: TextView
     var mFrom: TextView
     var mTime: TextView
     var mType: TextView
 
     init {
         mTitle = itemView.findViewById(R.id.content_title) as TextView
+        mDes = itemView.findViewById(R.id.content_des)
         mFrom = itemView.findViewById(R.id.item_footer_from) as TextView
         mTime = itemView.findViewById(R.id.item_footer_time) as TextView
         mType = itemView.findViewById(R.id.item_footer_type) as TextView

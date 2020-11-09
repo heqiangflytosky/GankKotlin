@@ -9,13 +9,14 @@ import java.util.ArrayList
 data class GankItemBean (
     var _id: String?,
     var createdAt: String?,
+    var title: String?,
     var desc: String?,
     var publishedAt: String?,
     var source: String?,
     var type: String?,
     var url: String?,
     var used: String?,
-    var who: String?
+    var author: String?
 )
 
 data class DailyDataBean (
@@ -61,8 +62,7 @@ data class DayHistoryResponse(
 
 
 data class GankDataResponse(
-    var error : Boolean,
-    var results: ArrayList<GankItemBean>
+    var data: ArrayList<GankItemBean>
 )
 
 
@@ -78,4 +78,4 @@ data class AddToGankResponse (
 )
 
 open class GankDetailData(var gank_id: String?,var gank_type: String?,var url: String?, var who: String?,var title: String?,
-                     var published_date: String?,var action_date: Long) : Serializable
+                          var desc: String?, var published_date: String?,var action_date: Long) : Serializable

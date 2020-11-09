@@ -31,8 +31,8 @@ class GankListPresenter :GankListContract.Presenter {
             override fun onSuccess(gankDataResponse: GankDataResponse?) {
                 mView.setRefreshing(false)
                 val list = ArrayList<GankItem>()
-                if (gankDataResponse != null && gankDataResponse.results != null) {
-                    for (bean in gankDataResponse.results) {
+                if (gankDataResponse != null && gankDataResponse.data != null) {
+                    for (bean in gankDataResponse.data) {
                         list.add(GankContentItem(bean))
                     }
                 }
@@ -52,8 +52,8 @@ class GankListPresenter :GankListContract.Presenter {
         RequestManager.instance.getGankData(type, 20, page, object : CallBack<GankDataResponse>{
             override fun onSuccess(gankDataResponse: GankDataResponse?) {
                 val list = ArrayList<GankItem>()
-                if (gankDataResponse != null && gankDataResponse.results != null) {
-                    for (bean in gankDataResponse.results) {
+                if (gankDataResponse != null && gankDataResponse.data != null) {
+                    for (bean in gankDataResponse.data) {
                         list.add(GankContentItem(bean))
                     }
                 }

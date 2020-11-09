@@ -1,12 +1,9 @@
 package com.android.hq.gank.gankkotlin.utils
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Environment
-import android.text.TextUtils
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.android.hq.gank.gankkotlin.R
 import com.android.hq.gank.gankkotlin.data.GankDetailData
 import com.android.hq.gank.gankkotlin.ui.activity.ArticleDetailActivity
@@ -16,11 +13,14 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+
+
 object AppUtils {
     const val INTENT_ITEM_INFO = "intent_item_info"
     private var mAppContext: Context? = null
     private val sDataFormatZ = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private val sDataFormat6S = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+    private val sDataFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
     fun init(context: Context) {
         mAppContext = context
@@ -43,9 +43,12 @@ object AppUtils {
             if (time.endsWith("Z")) {
                 sDataFormatZ.parse(time)
                 c = sDataFormatZ.getCalendar()
-            } else {
+            } else if (time.endsWith("SSSSSS")) {
                 sDataFormat6S.parse(time)
                 c = sDataFormat6S.getCalendar()
+            } else {
+                sDataFormat.parse(time)
+                c = sDataFormat.getCalendar()
             }
         } catch (e: ParseException) {
             e.printStackTrace()

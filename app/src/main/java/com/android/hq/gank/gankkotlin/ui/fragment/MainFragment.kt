@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
     }
 
     fun addPages() {
-        pagerAdapter?.addPage(GankDailyFragment())
+        //pagerAdapter?.addPage(GankDailyFragment())
 
         pagerAdapter?.addPage(GankListFragment.newInstance(GankType.TYPE_ANDROID))
 
@@ -49,17 +49,17 @@ class MainFragment : Fragment() {
 
         pagerAdapter?.addPage(GankListFragment.newInstance(GankType.TYPE_APP))
 
-        pagerAdapter?.addPage(GankListFragment.newInstance(GankType.TYPE_EXPAND_RES))
+        pagerAdapter?.addPage(GankListFragment.newInstance(GankType.TYPE_FLUTTER))
 
     }
 
     fun addTabs() {
-        addTab(R.string.tab_daily_recommend, 0, true)
-        addTab(R.string.tab_daily_android, 1, false)
-        addTab(R.string.tab_daily_ios, 2, false)
-        addTab(R.string.tab_daily_web, 3, false)
-        addTab(R.string.tab_daily_app, 4, false)
-        addTab(R.string.tab_daily_expand_res, 5, false)
+        //addTab(R.string.tab_daily_recommend, 0, true)
+        addTab(R.string.tab_daily_android, 0, true)
+        addTab(R.string.tab_daily_ios, 1, false)
+        addTab(R.string.tab_daily_web, 2, false)
+        addTab(R.string.tab_daily_app, 3, false)
+        addTab(R.string.tab_daily_flutter, 4, false)
 
         viewPager?.currentItem = 0
     }

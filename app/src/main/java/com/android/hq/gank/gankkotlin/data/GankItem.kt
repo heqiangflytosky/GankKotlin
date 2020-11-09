@@ -5,11 +5,11 @@ import java.util.*
 
 interface GankItem : Serializable
 
-class GankContentItem(bean: GankItemBean) : GankItemBean(bean._id,bean.createdAt,bean.desc,bean.publishedAt,bean.source,
-    bean.type,bean.url,bean.used,bean.who),GankItem
+class GankContentItem(bean: GankItemBean) : GankItemBean(bean._id,bean.createdAt,bean.title,bean.desc,bean.publishedAt,bean.source,
+    bean.type,bean.url,bean.used,bean.author),GankItem
 
 class GankImageItem(var imageUrl:String?) : GankItemBean(null,null,null,null,null,
-    null,null,null,null),GankItem {
+    null,null,null,null,null),GankItem {
     override fun equals(other: Any?): Boolean {
         if(this === other){
             return true
@@ -26,8 +26,8 @@ class GankImageItem(var imageUrl:String?) : GankItemBean(null,null,null,null,nul
     }
 }
 
-class GankHeaderItem(var title:String) : GankItemBean(null,null,null,null,null,
-    null,null,null,null),GankItem {
+class GankHeaderItem(var label:String) : GankItemBean(null,null,null,null,null,
+    null,null,null,null, null),GankItem {
     override fun equals(other: Any?): Boolean {
         if(this === other){
             return true
@@ -36,16 +36,16 @@ class GankHeaderItem(var title:String) : GankItemBean(null,null,null,null,null,
             return false
         }
 
-        return title.equals(other.title)
+        return label.equals(other.label)
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(title)
+        return Objects.hash(label)
     }
 }
 
 class GankFooterItem() :GankItemBean(null,null,null,null,null,
-    null,null,null,null),GankItem {
+    null,null,null,null,null),GankItem {
     override fun equals(other: Any?): Boolean {
         if(this === other){
             return true
@@ -80,8 +80,8 @@ class GankSearchItem(bean: GankSearchItemBean):GankSearchItemBean(bean.desc,bean
     }
 }
 
-class HistoryFavItem(gank_id: String?,gank_type: String?,url: String?, who: String?,title: String?,
-                     published_date: String?,action_date: Long) : GankDetailData(gank_id,gank_type,url,who,title,published_date,action_date),GankItem {
+class HistoryFavItem(gank_id: String?,gank_type: String?,url: String?, who: String?,title: String?,desc: String?,
+                     published_date: String?,action_date: Long) : GankDetailData(gank_id,gank_type,url,who,title,desc,published_date,action_date),GankItem {
 
 
     override fun equals(o: Any?): Boolean {
