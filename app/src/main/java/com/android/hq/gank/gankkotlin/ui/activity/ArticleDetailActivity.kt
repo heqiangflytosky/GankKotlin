@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.tool_bar_article_detail_bottom.*
 import kotlinx.android.synthetic.main.tool_bar_article_detail_top.*
 
 class ArticleDetailActivity:AppCompatActivity() {
-    var data: GankDetailData? = null
+    lateinit var data: GankDetailData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,18 +25,18 @@ class ArticleDetailActivity:AppCompatActivity() {
         initView()
     }
 
-    fun initData() {
-        data = intent.getSerializableExtra(AppUtils.INTENT_ITEM_INFO) as GankDetailData?
+    private fun initData() {
+        data = intent.getSerializableExtra(AppUtils.INTENT_ITEM_INFO) as GankDetailData
     }
 
-    fun initView() {
-        menu_title.text = data?.title
-        presenter.text = resources.getString(R.string.text_presenter)+data?.who
+    private fun initView() {
+        menu_title.text = data.title
+        presenter.text = resources.getString(R.string.text_presenter)+data.who
 
         webview.settings.javaScriptEnabled = true
         webview.webChromeClient = GankWebChromeClient()
         webview.webViewClient = GankWebViewClient()
-        webview.loadUrl(data?.url)
+        webview.loadUrl(data.url)
 
     }
 

@@ -21,10 +21,10 @@ class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     val TYPE_SEARCH_ITEM = 5
     val TYPE_HISTORY_FAV_ITEM = 6
 
-    var fragment: Fragment? = null
+    var fragment: Fragment
     var list: MutableList<GankItem>? = null
     constructor(fragment: Fragment) {
-        this.fragment = fragment;
+        this.fragment = fragment
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

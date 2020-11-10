@@ -20,15 +20,15 @@ import java.io.IOException
 class RequestManager {
     private val MAX_AGE = 4 * 60 * 60 //缓存4个小时
     private val CACHE_SIZE = 10 * 1024 * 1024//缓存10M；
-    var service :GankService ?=null
+    var service :GankService
     init {
         service = getRetrofit().create(GankService::class.java)
     }
 
-    fun getRetrofit():Retrofit {
+    private fun getRetrofit():Retrofit {
         val interceptor = Interceptor { chain ->
             val request = chain.request()
-            var response: Response? = null
+            lateinit var response: Response
             try {
                 response = chain.proceed(request)
             } catch (e: IOException) {
@@ -39,7 +39,7 @@ class RequestManager {
                     GankApi.GANK_SEARCH_URL
                 )
             ) {
-                response!!.newBuilder()
+                response.newBuilder()
                     .header("Cache-Control", "max-age=$MAX_AGE")
                     .build()
             } else response
@@ -69,7 +69,7 @@ class RequestManager {
 
 
     fun getDailyData(callBack: CallBack<DailyDataResponse>) {
-        service!!.getGankToday().subscribeOn(Schedulers.io())
+        service.getGankToday().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<DailyDataResponse> {
                 override fun onError(e: Throwable?) {
@@ -87,7 +87,7 @@ class RequestManager {
     }
 
     fun getGankData(category:String, pageCount:Int, page:Int, callBack: CallBack<GankDataResponse>){
-        service!!.getGankData(category, pageCount, page).subscribeOn(Schedulers.io())
+        service.getGankData(category, pageCount, page).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<GankDataResponse> {
                 override fun onError(e: Throwable?) {
