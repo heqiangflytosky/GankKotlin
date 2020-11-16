@@ -4,6 +4,10 @@ import com.android.hq.gank.gankkotlin.data.DailyDataResponse
 import com.android.hq.gank.gankkotlin.data.GankApi
 import com.android.hq.gank.gankkotlin.data.GankDataResponse
 import com.android.hq.gank.gankkotlin.utils.AppUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -11,9 +15,6 @@ import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import rx.Observer
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 import java.io.File
 import java.io.IOException
 
@@ -69,38 +70,19 @@ class RequestManager {
 
 
     fun getDailyData(callBack: CallBack<DailyDataResponse>) {
-        service.getGankToday().subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<DailyDataResponse> {
-                override fun onError(e: Throwable?) {
-                    callBack.onFail()
-                }
 
-                override fun onNext(t: DailyDataResponse?) {
-                    callBack.onSuccess(t!!)
-                }
-
-                override fun onCompleted() {
-
-                }
-            })
     }
 
-    fun getGankData(category:String, pageCount:Int, page:Int, callBack: CallBack<GankDataResponse>){
-        service.getGankData(category, pageCount, page).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<GankDataResponse> {
-                override fun onError(e: Throwable?) {
-                    callBack.onFail()
+    fun getGankData(category:String, pageCount:Int, page:Int, onSuccess:(reponse:GankDataResponse) -> Unit = {}, onFail: () -> Unit ={}){
+        GlobalScope.launch(Dispatchers.IO) {
+            val reponse = service.getGankData(category, pageCount, page).execute()
+            withContext(Dispatchers.Main) {
+                if (reponse.isSuccessful) {
+                    onSuccess(reponse.body() as GankDataResponse)
+                }else{
+                    onFail()
                 }
-
-                override fun onNext(t: GankDataResponse?) {
-                    callBack.onSuccess(t)
-                }
-
-                override fun onCompleted() {
-                }
-
-            })
+            }
+        }
     }
 }
