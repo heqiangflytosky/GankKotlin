@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         view_pager_main.currentItem = 0
         home_img.setImageResource(R.drawable.tab_home)
-        home_tv.setTextColor(colorSelected!!)
+        home_tv.setTextColor(colorSelected)
 
         root_view.setOnSizeChangeListener(object : OnSizeWillChangeListener {
             override fun onSizeWillChanged(w: Int, h: Int) {
@@ -87,22 +87,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             R.id.page1 -> {
                 view_pager_main.currentItem = 0
                 home_img.setImageResource(R.drawable.tab_home)
-                home_tv.setTextColor(colorSelected!!)
+                home_tv.setTextColor(colorSelected)
             }
             R.id.search -> {
                 view_pager_main.currentItem = 1
                 search_img.setImageResource(R.drawable.tab_explore)
-                search_tv.setTextColor(colorSelected!!)
+                search_tv.setTextColor(colorSelected)
             }
             R.id.present -> {
                 view_pager_main.currentItem = 2
                 present_img.setImageResource(R.drawable.tab_recommend)
-                present_tv.setTextColor(colorSelected!!)
+                present_tv.setTextColor(colorSelected)
             }
             R.id.about -> {
                 view_pager_main.currentItem = 3
                 about_img.setImageResource(R.drawable.tab_profile)
-                about_tv.setTextColor(colorSelected!!)
+                about_tv.setTextColor(colorSelected)
             }
         }
     }

@@ -74,14 +74,26 @@ class RequestManager {
     }
 
     fun getGankData(category:String, pageCount:Int, page:Int, onSuccess:(reponse:GankDataResponse) -> Unit = {}, onFail: () -> Unit ={}){
-        GlobalScope.launch(Dispatchers.IO) {
-            val reponse = service.getGankData(category, pageCount, page).execute()
-            withContext(Dispatchers.Main) {
-                if (reponse.isSuccessful) {
-                    onSuccess(reponse.body() as GankDataResponse)
-                }else{
-                    onFail()
-                }
+//        GlobalScope.launch(Dispatchers.IO) {
+//            val reponse = service.getGankData(category, pageCount, page).execute()
+//            withContext(Dispatchers.Main) {
+//                if (reponse.isSuccessful) {
+//                    onSuccess(reponse.body() as GankDataResponse)
+//                }else{
+//                    onFail()
+//                }
+//            }
+//        }
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val reponse = withContext(Dispatchers.IO) {
+                service.getGankData(category, pageCount, page).execute()
+            }
+
+            if (reponse.isSuccessful) {
+                onSuccess(reponse.body() as GankDataResponse)
+            }else{
+                onFail()
             }
         }
     }
