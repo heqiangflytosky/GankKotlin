@@ -1,5 +1,6 @@
 package com.android.hq.gank.gankkotlin.network
 
+import android.util.Log
 import com.android.hq.gank.gankkotlin.data.DailyDataResponse
 import com.android.hq.gank.gankkotlin.data.GankApi
 import com.android.hq.gank.gankkotlin.data.GankDataResponse
@@ -17,10 +18,13 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class RequestManager {
+    private val tag = "RequestManager"
     private val MAX_AGE = 4 * 60 * 60 //缓存4个小时
     private val CACHE_SIZE = 10 * 1024 * 1024//缓存10M；
+    private val CONNECT_TIMEOUT:Long = 10
     var service :GankService
     init {
         service = getRetrofit().create(GankService::class.java)
@@ -50,6 +54,7 @@ class RequestManager {
         val client = OkHttpClient.Builder()
             .cache(Cache(cacheDirectory, CACHE_SIZE.toLong()))
             .addNetworkInterceptor(interceptor)
+            .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .build()
         //client.setConnectTimeout(2000, TimeUnit.MILLISECONDS);
 
@@ -86,12 +91,18 @@ class RequestManager {
 //        }
 
         GlobalScope.launch(Dispatchers.Main) {
-            val reponse = withContext(Dispatchers.IO) {
-                service.getGankData(category, pageCount, page).execute()
+            var reponse: retrofit2.Response<GankDataResponse>?=null
+            try {
+                reponse = withContext(Dispatchers.IO) {
+                    service.getGankData(category, pageCount, page).execute()
+                }
+            } catch (e : Exception) {
+                Log.e(tag,"getGankData error ",e)
             }
 
-            if (reponse.isSuccessful) {
-                onSuccess(reponse.body() as GankDataResponse)
+
+            if (reponse?.isSuccessful == true) {
+                onSuccess(reponse?.body() as GankDataResponse)
             }else{
                 onFail()
             }
